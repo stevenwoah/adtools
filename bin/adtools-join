@@ -6,7 +6,7 @@ import adtools
 
 parser = OptionParser()
 parser.add_option("-n", "--name", dest="name",
-					help="Computer name in lowercase w/o domain, e.g.,"
+					help="Computer name in lowercase w/o domain, e.g., "
 					"server01")
 parser.add_option("-d", "--domain-controller", dest="dc",
 					help="Domain Controller for LDAP communication")
@@ -15,20 +15,20 @@ parser.add_option("-r", "--realm", dest="realm",
 parser.add_option("-p", "--password", dest="password", default=None,
 					help="Computer password [default: %default]")
 parser.add_option("-b", "--base-dn", dest="base_dn", default=None,
-					help="AD/LDAP base DN, e.g., DC=example,DC=com"
+					help="AD/LDAP base DN, e.g., DC=example,DC=com "
 					"[default: %default]")
 parser.add_option("-c", "--computers-dn", dest="computers_dn", default=None,
-					help="AD/LDAP DN to put new Computer; default is"
+					help="AD/LDAP DN to put new Computer; default is "
 					"CN=Computers under base DN")
 parser.add_option("-k", "--keytab", dest="keytab", default=None,
 					help="Path for new keytab file [default: %default]")
 parser.add_option("-e", "--keytab-enctypes", dest="enctypes", default=None,
-					action="append", help="Kerberos encryption types to"
-					"place in keytab (flag allowed more than once)"
+					action="append", help="Kerberos encryption types to "
+					"place in keytab (flag allowed more than once) "
 					"[default: aes256-cts]")
 parser.add_option("-s", "--service-principal", dest="spns", default=None,
-					action="append", help="Additional SPNs to tie to"
-					"Computer, e.g., host/server01.example.com"
+					action="append", help="Additional SPNs to tie to "
+					"Computer, e.g., host/server01.example.com "
 					"(flag allowed more than once) [default: %default]")
 
 (options, args) = parser.parse_args()

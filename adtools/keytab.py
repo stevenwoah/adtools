@@ -6,7 +6,7 @@ from datetime import datetime
 from Crypto.Cipher import AES
 from Crypto.Hash import MD4
 from Crypto.Protocol.KDF import PBKDF2
-from nfold import krb5int_nfold
+from adtools.nfold import krb5int_nfold
 
 KRB_CONSTANT = "kerberos"
 KRB_ENCTYPES = {

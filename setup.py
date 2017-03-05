@@ -16,6 +16,7 @@ setup(
       'Environment :: Console',
       'Intended Audience :: System Administrators',
       'License :: OSI Approved :: MIT License',
+      'Operating System :: MacOS :: MacOS X',
       'Operating System :: POSIX :: Linux',
       'Programming Language :: Python :: 2',
       'Topic :: System :: Systems Administration',
@@ -23,5 +24,10 @@ setup(
     ],
   scripts = [
     "bin/adtools-join",
+    ],
+  install_requires = [
+    "pycrypto >= 2.6.1",
+    "python-ldap >= 2.4.22",
+    "kerberos >= 1.2.5",
     ],
 )
