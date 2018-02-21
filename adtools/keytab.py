@@ -103,7 +103,7 @@ class Keytab:
 		# Write out KVNO again but 32-bit this time
 		self.write_int(self.kvno)
 
-	def create(self, name, realm, password, enctypes, spns=None):
+	def create(self, name, realm, password, enctypes, spns=None, kvno=2):
 		self.name = name
 		self.realm = realm
 		self.password = password
@@ -113,7 +113,7 @@ class Keytab:
 
 		self.principal = "%s$" % self.name.upper()
 		self.salt = "%shost%s.%s" % (self.realm, self.name, self.realm.lower())
-		self.kvno = 2
+		self.kvno = kvno
 
 		self.write_header()
 		self.process_enctypes()
