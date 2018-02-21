@@ -103,16 +103,25 @@ class Keytab:
 		# Write out KVNO again but 32-bit this time
 		self.write_int(self.kvno)
 
-	def create(self, name, realm, password, enctypes, spns=None, kvno=2):
+	def create(self, name, realm, password, enctypes, spns=None, kvno=2, spns_only=False, account_type_computer=True):
 		self.name = name
 		self.realm = realm
 		self.password = password
 		self.keytab = open(self.keytab_file, "wb")
 		self.enctypes = enctypes
 		self.spns = spns
+		self.spns_only = spns_only
 
-		self.principal = "%s$" % self.name.upper()
-		self.salt = "%shost%s.%s" % (self.realm, self.name, self.realm.lower())
+		# How to salt for AD
+		# [MS-KILE] 3.1.1.2 - Cryptographic Material
+		# https://msdn.microsoft.com/en-us/library/cc233883.aspx
+		if account_type_computer:
+			self.principal = "%s$" % self.name.upper()
+			self.salt = "%shost%s.%s" % (self.realm.upper(), self.name.lower(), self.realm.lower())
+		else:
+			self.principal = self.name
+			self.salt = "%s%s" % (self.realm.upper(), self.name)
+
 		self.kvno = kvno
 
 		self.write_header()
@@ -125,7 +134,10 @@ class Keytab:
 		for enc in self.enctypes:
 			if enc not in KRB_ENCTYPES.keys():
 				raise Exception("Not a valid enctype: %s" % enc)
-			self.add_entry(enc)
+
+			if not self.spns_only:
+				self.add_entry(enc)
+
 			if self.spns:
 				for spn in self.spns:
 					self.add_entry(enc, spn)
