@@ -126,8 +126,9 @@ class Keytab:
 			if enc not in KRB_ENCTYPES.keys():
 				raise Exception("Not a valid enctype: %s" % enc)
 			self.add_entry(enc)
-			for spn in self.spns:
-				self.add_entry(enc, spn)
+			if self.spns:
+				for spn in self.spns:
+					self.add_entry(enc, spn)
 
 	def write(self, data):
 		self.keytab.write(data)
