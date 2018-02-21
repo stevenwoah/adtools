@@ -2,6 +2,7 @@
 #   - https://www.gnu.org/software/shishi/manual/html_node/The-Keytab-Binary-File-Format.html
 
 import struct
+import StringIO
 from datetime import datetime
 from Crypto.Cipher import AES
 from Crypto.Hash import MD4
@@ -31,7 +32,7 @@ PBKDF2_ITERATIONS = 4096
 
 class Keytab:
 
-	def __init__(self, keytab_file):
+	def __init__(self, keytab_file=None):
 		self.keytab_file = keytab_file
 
 	def add_entry(self, enc, spn=None):
@@ -103,11 +104,15 @@ class Keytab:
 		# Write out KVNO again but 32-bit this time
 		self.write_int(self.kvno)
 
+	def save_to_disk(self):
+		with open(self.keytab_file, "w") as f:
+			f.write(self.keytab_contents)
+
 	def create(self, name, realm, password, enctypes, spns=None, kvno=2, spns_only=False, account_type_computer=True):
 		self.name = name
 		self.realm = realm
 		self.password = password
-		self.keytab = open(self.keytab_file, "wb")
+		self.keytab = StringIO.StringIO()
 		self.enctypes = enctypes
 		self.spns = spns
 		self.spns_only = spns_only
@@ -127,8 +132,12 @@ class Keytab:
 		self.write_header()
 		self.process_enctypes()
 
-		# Close keytab
+		# Save contents to var and close keytab
+		self.keytab_contents = self.keytab.getvalue()
 		self.keytab.close()
+
+		if self.keytab_file:
+			self.save_to_disk()
 
 	def process_enctypes(self):
 		for enc in self.enctypes:
