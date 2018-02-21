@@ -8,7 +8,7 @@ setup(
   author = "Steven O'Donnell",
   author_email = 'developer@steven.io',
   url = 'https://github.com/stevenwoah/adtools',
-  download_url = 'https://github.com/stevenwoah/adtools/archive/0.1.tar.gz',
+  download_url = 'https://github.com/stevenwoah/adtools/archive/0.2.tar.gz',
   keywords = ['kerberos', 'keytab', 'gssapi', 'ldap', 'openldap', 'active', 'directory', 'ad', 'tools'],
   license = 'MIT',
   classifiers = [
