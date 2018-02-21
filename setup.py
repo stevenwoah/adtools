@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
   name = 'adtools',
   packages = ['adtools'],
-  version = '0.1',
+  version = '0.2',
   description = 'Active Directory toolset, including keytab generation',
   author = "Steven O'Donnell",
   author_email = 'developer@steven.io',
